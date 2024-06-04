@@ -14,7 +14,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 // Import main service 
-const main_service = require('./src/main_service')
+const main_service = require('./src/services/main_service')
 
 // Function to execute the cron 
 const myScheduleTask = async() => {
@@ -28,6 +28,9 @@ cron.schedule('10 * * * *', async () => {
     console.log(`Starting cron`)
     await myScheduleTask();
   });
+
+const allRouters = require('./src/Routers/main_router'); 
+app.use("/API", allRouters); 
 
 
 app.listen(PORT, () => {
