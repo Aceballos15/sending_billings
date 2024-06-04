@@ -60,13 +60,15 @@ class main_service {
 
       const config = {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + data.private_token,
+          "Accept": "application/json",
+          "Content-Type": "application/json", 
+          "Authorization": "Bearer " + data.private_token,
         },
       };
 
-      const response_soenac = await axios.post(`${base_soenac}/invoice`, data.json, config);
+      const json_send = data.json;
+      const response_soenac = await axios.post(`${base_soenac}/invoice`, json_send, config);
+      
       if (response_soenac.data && response_soenac.status === 200) {
 
         if (response_soenac.data.is_valid === true) {
