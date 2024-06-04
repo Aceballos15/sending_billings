@@ -24,7 +24,7 @@ const myScheduleTask = async() => {
 }
 
 // Programing and configuration cron 
-cron.schedule('30 * * * *', async () => {
+cron.schedule('00 * * * *', async () => {
     console.log(`Starting cron`)
     await myScheduleTask();
   });
