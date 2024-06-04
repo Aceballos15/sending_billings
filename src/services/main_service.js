@@ -1,6 +1,7 @@
 const axios = require("axios");
 const base_url = process.env.URL_ZOHO;
 const base_soenac = process.env.URL_SOENAC;
+const JSON5 = require("json5");
 
 // Import get billing service
 const get_service = require("./get_billings");
@@ -66,9 +67,12 @@ class main_service {
         },
       };
 
-      const json_send = data.json;
-      const response_soenac = await axios.post(`${base_soenac}/invoice`, json_send, config);
-      
+      const json_send = JSON5.parse(data.json); 
+
+      const newJson = this.json_construct(json_send);  
+
+      const response_soenac = await axios.post(`${base_soenac}/invoice`, newJson, config)
+
       if (response_soenac.data && response_soenac.status === 200) {
 
         if (response_soenac.data.is_valid === true) {
@@ -86,7 +90,7 @@ class main_service {
                 if (response.data) {
                   console.log(
                     `Billing created successfully ${JSON.stringify(
-                      response.data.status_message,
+                        response_soenac.data.status_message,
                       null,
                       2
                     )}`
@@ -107,6 +111,25 @@ class main_service {
           );
     }
   }
+    
+  json_construct(data){
+
+    const new_json = {
+        number: data.number, 
+        environment: data.environment, 
+        sync: true, 
+        date: data.date, 
+        type_document_id: data.type_document_id, 
+        resolution_id: data.resolution_id, 
+        customer: data.customer, 
+        legal_monetary_totals: data.legal_monetary_totals, 
+        invoice_lines: data.invoice_lines
+    }
+
+    return new_json;
+  }
+
+
 }
 
 module.exports = main_service;
