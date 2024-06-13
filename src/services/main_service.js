@@ -34,7 +34,7 @@ class main_service {
             if (response.data.data) {
               console.log(
                 `Billing created successfully ${JSON.stringify(
-                  response.data,
+                  response.data.data,
                   null,
                   2
                 )}`
