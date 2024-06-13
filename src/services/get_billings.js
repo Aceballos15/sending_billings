@@ -7,7 +7,7 @@ class get_billing_pending {
   // Method to get all pending billings
   async get_billings() {
     const billings = await axios.get(`${base_url}/billingTry`);
-    return billings.data;
+    return billings.data.data;
   }
 }
 

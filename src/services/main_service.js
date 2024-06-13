@@ -31,7 +31,7 @@ class main_service {
               new_billing
             );
 
-            if (response.data) {
+            if (response.data.data) {
               console.log(
                 `Billing created successfully ${JSON.stringify(
                   response.data,
@@ -87,7 +87,7 @@ class main_service {
                   new_billing
                 );
     
-                if (response.data) {
+                if (response.data.data) {
                   console.log(
                     `Billing created successfully ${JSON.stringify(
                         response_soenac.data.status_message,
